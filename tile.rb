@@ -1,10 +1,11 @@
 class Tile
 
   attr_accessor :bombed, :flagged, :revealed, :bomb_count
-  attr_reader :position
+  attr_reader :position, :board
 
-  def initialize(position)
+  def initialize(position, board)
     @position = position
+    @board = board
     @bombed, @flagged, @revealed, @bomb_count = false, false, false, nil
   end
 
@@ -21,35 +22,36 @@ class Tile
   end
 
   def neighbors
-    neighbors = []
     diffs = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
-    diffs.each do |diff|
-      neighbors << [@position[0] + diff[0], @position[1] + diff[1]]
-    end
-    neighbors
+
+    diffs.map {|diff| [@position[0] + diff[0], @position[1] + diff[1]] }
   end
 
-  def neighbor_bomb_count(board)
+  def neighbor_bomb_count
     count = 0
     self.neighbors.each do |neighbor|
-      count += 1 if board[neighbor].bombed?
+      count += 1 if @board[neighbor].bombed?
     end
     count
   end
 
-  def reveal(board)
+  def reveal
     self.revealed = true
 
-    if self.neighbor_bomb_count(board) > 0
-      self.bomb_count = self.neighbor_bomb_count(board)
+    if self.neighbor_bomb_count(@board) > 0
+      self.bomb_count = self.neighbor_bomb_count(@board)
       return self
     end
 
     self.neighbors.each do |neighbor|
       #board.tiles.length rows
+      rows = @board.rows
+      cols = @board.cols
+
+
       #check for if bounds: if yes do next line, else NEXT
       #NEXT if tile is already revealed
-      board[neighbor].reveal(board)
+      @board[neighbor].reveal
     end
   end
 

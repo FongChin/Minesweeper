@@ -1,8 +1,10 @@
-require_relative 'tile'
-require_relative 'board'
+require './tile'
+require './board'
 
 class Minesweeper
 
 end
 
-ms = Board.new.show
+b = Board.new
+
+b[[0,0]].reveal

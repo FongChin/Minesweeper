@@ -1,6 +1,6 @@
 class Board
 
-  attr_accessor :rows, :cols, :bombs
+  attr_accessor :rows, :cols, :bombs, :tiles
 
   def initialize(rows = 9, cols = 9, bombs = 10)
     @bombs = bombs
@@ -22,7 +22,7 @@ class Board
   end
 
   def [](pos)
-    @tiles[ pos[0]][pos[1] ]
+    @tiles[pos[0]][pos[1]]
   end
 
   def []=(pos, tile)

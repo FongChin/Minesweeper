@@ -45,4 +45,28 @@ class Board
     end
   end
 
+  def over?
+    lost? || won?
+  end
+
+  def lost?
+    @tiles.each do |row|
+      row.each do |tile|
+        return true if tile.revealed? && tile.bombed?
+      end
+    end
+    false
+  end
+
+  def won?
+    unrevealed_tiles = 0
+    @tiles.each do |row|
+      row.each do |tile|
+        unrevealed_tiles += 1 unless tile.revealed?
+        return false if unrevealed_tiles > @bombs
+      end
+    end
+    true
+  end
+
 end

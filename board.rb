@@ -22,7 +22,11 @@ class Board
   end
 
   def [](pos)
-    self.tiles[ pos[0]][pos[1] ]
+    @tiles[ pos[0]][pos[1] ]
+  end
+
+  def []=(pos, tile)
+    @tiles[ pos[0]][pos[1] ] = tile
   end
 
   def place_bomb
@@ -36,7 +40,9 @@ class Board
   end
 
   def show
-
+    @tiles.each do |row|
+      p row
+    end
   end
 
 end

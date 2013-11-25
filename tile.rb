@@ -36,6 +36,8 @@ class Tile
   end
 
   def reveal
+    return self if self.flagged?
+
     self.revealed = true
 
     if self.neighbor_bomb_count(@board) > 0
@@ -44,20 +46,23 @@ class Tile
     end
 
     self.neighbors.each do |neighbor|
-      #board.tiles.length rows
       rows = @board.rows
       cols = @board.cols
-
-
-      #check for if bounds: if yes do next line, else NEXT
-      #NEXT if tile is already revealed
+      next unless neighbor[0].between?(0, rows) && neighbor[1].between?(0, cols)
+      next if @board[neighbor].revealed?
       @board[neighbor].reveal
     end
   end
 
   def to_s
-    #if its not revealed
-    #if it has abomb coutn
-    #return # of bombs
+    if not revealed?
+      "*"
+    elsif @flagged
+      "F"
+    elsif @bomb_count == 0
+      "_"
+    else
+      "#{@bomb_count}"
+    end
   end
 end

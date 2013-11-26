@@ -59,10 +59,10 @@ class Tile
   end
 
   def to_s
-    if not revealed?
-      "*"
-    elsif @flagged
+    if @flagged
       "F"
+    elsif not revealed?
+      "*"
     elsif @bomb_count == 0 || @bomb_count.nil?
       "_"
     elsif bombed?

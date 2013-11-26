@@ -32,7 +32,7 @@ class Board
   def place_bomb
     bombs_placed = 0
     until bombs_placed == @bombs
-      current_tile = self[[rand(9), rand(9)]]
+      current_tile = self[[rand(@rows), rand(@cols)]]
       next if current_tile.bombed?
       current_tile.bombed = true
       bombs_placed += 1

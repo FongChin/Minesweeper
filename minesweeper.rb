@@ -12,6 +12,13 @@ class Minesweeper
       @board.show
       process_user_input(get_user_input)
     end
+    @board.show
+    if @board.won?
+      puts "You won!"
+    elsif @board.lost?
+      puts "BOMB! You lose"
+    end
+
 
   end
 

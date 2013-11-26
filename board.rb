@@ -41,7 +41,7 @@ class Board
 
   def show
     @tiles.each do |row|
-      p row
+      puts row.join("")
     end
   end
 
